@@ -52,8 +52,8 @@ class QFunctionHelpers:
     def __validate_discount_factor(discount_factor):
         if not isinstance(discount_factor, float):
             raise TypeError("discount_factor has to be of type float.")
-        if discount_factor > 1:
-            raise ValueError("discount_factor has to be less or equal one.")
+        if discount_factor < 0 or discount_factor > 1:
+            raise ValueError("discount_factor has to be between zero and one (inclusive).")
 
     @staticmethod
     def __get_max_value_action_from_state(qdict, state):
