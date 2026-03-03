@@ -52,7 +52,7 @@ class ProbabilisticAction:
             raise TypeError("The dtype of probabilities array has to be an np numerical type.")
         if probabilities.size == 0:
             raise ValueError("Probabilities array can't be empty.")
-        if np.sum(probabilities) != 1.0:
+        if not np.isclose(np.sum(probabilities), 1.0):
             raise ValueError("The sample space probabilities have to sum to 1.0.")
 
     def __create_derived_actions(self, rewards, probabilities, states):
