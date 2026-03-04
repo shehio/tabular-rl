@@ -57,13 +57,11 @@ class QFunctionHelpers:
 
     @staticmethod
     def __get_max_value_action_from_state(qdict, state):
-        values = qdict[state].values()
         amax = np.argmax(list(qdict[state].values()))
         return state, list(qdict[state].keys())[amax]
 
     @staticmethod
     def __get_max_value_from_state(qdict, state):
-        values = qdict[state].values()
         return state, max(qdict[state].values())
 
     @staticmethod
