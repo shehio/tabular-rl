@@ -24,7 +24,19 @@ def test_add_state():
     assert state == mdp.states[state_count]
 
 
-def test_print():  # TODO: Test other combinations
+def test_print_empty():
+    mdp = MarkovDecisionProcess(states)
+    assert '' == mdp.__repr__()
+
+
+def test_print_single_state():
+    mdp = MarkovDecisionProcess(states)
+    state0 = State('state 0', 5)
+    mdp.add_state(state0)
+    assert 'state 0: 5\n' == mdp.__repr__()
+
+
+def test_print_multiple_states():
     mdp = MarkovDecisionProcess(states)
     state0 = State('state 0', 0)
     state1 = State('state 1', 0)
@@ -42,3 +54,33 @@ def test_print():  # TODO: Test other combinations
     assert 'state 0: 0\n' + \
         'state 1: 0\n' + \
         'state 2: 0\n' == mdp.__repr__()
+
+
+def test_print_states_with_values():
+    mdp = MarkovDecisionProcess(states)
+    state0 = State('state 0', 10)
+    state1 = State('state 1', 20)
+
+    mdp.add_state(state0)
+    mdp.add_state(state1)
+
+    assert 'state 0: 10\n' + \
+        'state 1: 20\n' == mdp.__repr__()
+
+
+def test_print_states_with_multiple_actions():
+    mdp = MarkovDecisionProcess(states)
+    state0 = State('state 0', 0)
+    state1 = State('state 1', 0)
+
+    action1 = ActionFactory.create_action('action1', 3, state1)
+    action2 = ActionFactory.create_action('action2', 7, state0)
+
+    state0.add_action(action1)
+    state0.add_action(action2)
+
+    mdp.add_state(state0)
+    mdp.add_state(state1)
+
+    assert 'state 0: 0\n' + \
+        'state 1: 0\n' == mdp.__repr__()
