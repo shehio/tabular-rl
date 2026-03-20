@@ -48,7 +48,7 @@ class ValueFunctionHelpers:
         first_vf_keys = first_value_function.value_dict.keys()
         second_vf_keys = second_value_function.value_dict.keys()
 
-        if len(np.intersect1d(first_vf_keys, second_vf_keys)) == len(first_vf_keys):
+        if len(np.intersect1d(first_vf_keys, second_vf_keys)) != len(first_vf_keys):
             raise ValueError("There seems to be different states between the value functions.")
 
         if len(first_vf_keys) >= len(second_vf_keys):
