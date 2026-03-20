@@ -20,6 +20,7 @@ class ValueFunctionHelpers:
             iterations: int = 100,
             epsilon: float = 0.05):
         prev_value_function = ValueFunctionHelpers.get_value_function(mdp)
+        current_value_function = prev_value_function
         value_function_diff = float("inf")
         i = 0
 
