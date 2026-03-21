@@ -60,6 +60,7 @@ class PolicyHelpers:
         prev_value_function = PolicyHelpers.__get_value_function_from_policy(mdp, policy, discount_factor)
         mdp.update_values(prev_value_function)
 
+        current_value_function = prev_value_function
         value_function_diff = float("inf")
 
         while value_function_diff > epsilon: # Should this break anyway after a particular number of iterations?
