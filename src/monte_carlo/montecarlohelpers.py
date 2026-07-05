@@ -120,7 +120,7 @@ class MonteCarloHelpers:
             exploration_ratio,
             stable_count,
             episodes_count):
-        old_policy = Policy(mdp)
+        new_policy = old_policy = Policy(mdp)
         policy_is_stable = 0
         i = 0
         while policy_is_stable < stable_count:
