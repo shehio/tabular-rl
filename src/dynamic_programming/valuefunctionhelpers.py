@@ -2,8 +2,6 @@ from src.building_blocks.markovdecisionprocess import MarkovDecisionProcess
 from src.building_blocks.qfunctionhelpers import QFunctionHelpers
 from src.building_blocks.valuefunction import ValueFunction
 
-import numpy as np
-
 
 class ValueFunctionHelpers:
 
@@ -49,13 +47,12 @@ class ValueFunctionHelpers:
         first_vf_keys = first_value_function.value_dict.keys()
         second_vf_keys = second_value_function.value_dict.keys()
 
-        if len(np.intersect1d(first_vf_keys, second_vf_keys)) != len(first_vf_keys):
+        # The smaller value function has to be a subset of the larger one, e.g. a value function derived
+        # from a QFunction excludes terminal states. np.intersect1d can't be used here: it wraps dict_keys
+        # of State objects in 0-d object arrays, so the intersection always comes back empty.
+        minimum_states_vf_keys = first_vf_keys & second_vf_keys
+        if len(minimum_states_vf_keys) != min(len(first_vf_keys), len(second_vf_keys)):
             raise ValueError("There seems to be different states between the value functions.")
-
-        if len(first_vf_keys) >= len(second_vf_keys):
-            minimum_states_vf_keys = second_vf_keys
-        else:
-            minimum_states_vf_keys = first_vf_keys
 
         state_differences = list(map(
             lambda state: abs(first_value_function.value_dict[state] - second_value_function.value_dict[state]),
